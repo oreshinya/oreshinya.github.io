@@ -1,0 +1,24 @@
+* {
+  font-family: "HelveticaNeue-Thin";
+}
+h1 {
+  font-weight: normal;
+  margin: 50px auto 50px;
+  width: 300px;
+}
+h1 img {
+  margin-right: 20px;
+  margin-bottom: -20px;
+}
+h2 {
+  font-weight: normal;
+}
+.tag {
+  display: inline-block;
+  width: 70px;
+}
+
+section {
+  width: 300px;
+  margin: 0 auto;
+}
