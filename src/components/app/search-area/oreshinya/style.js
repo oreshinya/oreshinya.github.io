@@ -19,6 +19,23 @@ const walk = Radium.keyframes({
 });
 
 export default {
+  oreshinya: {
+    width: "60px",
+    height: "60px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column"
+  },
+  imageContainer: {
+    width: "40px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+  imageLink: {
+    display: "block"
+  },
   born: {
     width: "32px",
     height: "32px",

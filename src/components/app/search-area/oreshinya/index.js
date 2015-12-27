@@ -6,7 +6,15 @@ import style from "./style";
 export default class Oreshinya extends Component {
   render() {
     return (
-      <div>
+      <div style={style.oreshinya}>
+        <div style={style.imageContainer}>
+          <a style={style.imageLink} href="https://twitter.com/oreshinya" target="_blank">
+            <img src="./images/github.png" />
+          </a>
+          <a style={style.imageLink} href="https://github.com/oreshinya" target="_blank">
+            <img src="./images/twitter.png" />
+          </a>
+        </div>
         <div style={style.born} />
       </div>
     );

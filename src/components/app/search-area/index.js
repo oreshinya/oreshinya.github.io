@@ -6,8 +6,10 @@ export default class SearchArea extends Component {
   render() {
     return (
       <div style={style.searchArea}>
-        <div style={style.field}>
-          <Oreshinya />
+        <div style={style.loupe}>
+          <div style={style.field}>
+            <Oreshinya />
+          </div>
         </div>
       </div>
     );

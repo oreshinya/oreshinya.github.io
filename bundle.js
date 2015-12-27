@@ -21703,8 +21703,12 @@ var SearchArea = (function (_Component) {
         { style: _style2.default.searchArea },
         _react2.default.createElement(
           "div",
-          { style: _style2.default.field },
-          _react2.default.createElement(_oreshinya2.default, null)
+          { style: _style2.default.loupe },
+          _react2.default.createElement(
+            "div",
+            { style: _style2.default.field },
+            _react2.default.createElement(_oreshinya2.default, null)
+          )
         )
       );
     }
@@ -21758,7 +21762,21 @@ var Oreshinya = (function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         "div",
-        null,
+        { style: _style2.default.oreshinya },
+        _react2.default.createElement(
+          "div",
+          { style: _style2.default.imageContainer },
+          _react2.default.createElement(
+            "a",
+            { style: _style2.default.imageLink, href: "https://twitter.com/oreshinya", target: "_blank" },
+            _react2.default.createElement("img", { src: "./images/github.png" })
+          ),
+          _react2.default.createElement(
+            "a",
+            { style: _style2.default.imageLink, href: "https://github.com/oreshinya", target: "_blank" },
+            _react2.default.createElement("img", { src: "./images/twitter.png" })
+          )
+        ),
         _react2.default.createElement("div", { style: _style2.default.born })
       );
     }
@@ -21801,6 +21819,23 @@ var walk = _radium2.default.keyframes({
 });
 
 exports.default = {
+  oreshinya: {
+    width: "60px",
+    height: "60px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column"
+  },
+  imageContainer: {
+    width: "40px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+  imageLink: {
+    display: "block"
+  },
   born: {
     width: "32px",
     height: "32px",
