@@ -21817,7 +21817,7 @@ var Oreshinya = (function (_Component) {
         { style: _style2.default.oreshinya },
         _react2.default.createElement(
           "div",
-          { style: _style2.default.imageContainer },
+          { style: this._getImageContainerStyle() },
           _react2.default.createElement(
             "a",
             { style: _style2.default.imageLink, href: "https://github.com/oreshinya", target: "_blank" },
@@ -21844,6 +21844,15 @@ var Oreshinya = (function (_Component) {
       var styles = [_style2.default.born];
       if (this.state.isClicked) {
         styles.push(_style2.default.clickedBorn);
+      }
+      return styles;
+    }
+  }, {
+    key: "_getImageContainerStyle",
+    value: function _getImageContainerStyle() {
+      var styles = [_style2.default.imageContainer];
+      if (this.state.isClicked) {
+        styles.push(_style2.default.clickedImageContainer);
       }
       return styles;
     }
@@ -21897,6 +21906,21 @@ var jump = _radium2.default.keyframes({
   }
 });
 
+var jumpBlock = _radium2.default.keyframes({
+  "0%": {
+    top: 0,
+    opacity: 0
+  },
+  "50%": {
+    top: "-20px",
+    opacity: 1
+  },
+  "100%": {
+    top: 0,
+    opacity: 1
+  }
+});
+
 exports.default = {
   oreshinya: {
     width: "60px",
@@ -21910,7 +21934,13 @@ exports.default = {
     width: "40px",
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "center"
+    alignItems: "center",
+    position: "relative",
+    opacity: 0
+  },
+  clickedImageContainer: {
+    animation: jumpBlock + " 0.1s linear 0.1s 1",
+    animationFillMode: "forwards"
   },
   imageLink: {
     display: "block"
@@ -21924,7 +21954,7 @@ exports.default = {
     animation: walk + " 1s step-start 0s infinite"
   },
   clickedBorn: {
-    animation: jump + " 0.1s linear 0s 1, " + walk + " 1s step-start 0.1s infinite"
+    animation: jump + " 0.1s linear 0s 1, " + walk + " 1s step-start 0s infinite"
   }
 };
 

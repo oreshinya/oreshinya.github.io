@@ -30,6 +30,21 @@ const jump = Radium.keyframes({
   }
 });
 
+const jumpBlock = Radium.keyframes({
+  "0%": {
+    top: 0,
+    opacity: 0
+  },
+  "50%": {
+    top: "-20px",
+    opacity: 1
+  },
+  "100%": {
+    top: 0,
+    opacity: 1
+  }
+});
+
 export default {
   oreshinya: {
     width: "60px",
@@ -43,7 +58,13 @@ export default {
     width: "40px",
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "center"
+    alignItems: "center",
+    position: "relative",
+    opacity: 0
+  },
+  clickedImageContainer: {
+    animation: `${jumpBlock} 0.1s linear 0.1s 1`,
+    animationFillMode: "forwards"
   },
   imageLink: {
     display: "block"
@@ -57,6 +78,6 @@ export default {
     animation: `${walk} 1s step-start 0s infinite`
   },
   clickedBorn: {
-    animation: `${jump} 0.1s linear 0s 1, ${walk} 1s step-start 0.1s infinite`
+    animation: `${jump} 0.1s linear 0s 1, ${walk} 1s step-start 0s infinite`
   }
 }

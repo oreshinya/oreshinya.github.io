@@ -12,7 +12,7 @@ class Oreshinya extends Component {
   render() {
     return (
       <div style={style.oreshinya}>
-        <div style={style.imageContainer}>
+        <div style={this._getImageContainerStyle()}>
           <a style={style.imageLink} href="https://github.com/oreshinya" target="_blank">
             <img src="./images/github.png" />
           </a>
@@ -29,9 +29,16 @@ class Oreshinya extends Component {
     this.setState({isClicked: true});
   }
   _getBornStyle() {
-    var styles = [style.born];
+    let styles = [style.born];
     if (this.state.isClicked) {
       styles.push(style.clickedBorn);
+    }
+    return styles;
+  }
+  _getImageContainerStyle() {
+    let styles = [style.imageContainer];
+    if (this.state.isClicked) {
+      styles.push(style.clickedImageContainer);
     }
     return styles;
   }
