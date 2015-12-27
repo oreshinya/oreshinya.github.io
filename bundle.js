@@ -21670,6 +21670,10 @@ var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _radium = require("radium");
+
+var _radium2 = _interopRequireDefault(_radium);
+
 var _oreshinya = require("./oreshinya");
 
 var _oreshinya2 = _interopRequireDefault(_oreshinya);
@@ -21689,10 +21693,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var SearchArea = (function (_Component) {
   _inherits(SearchArea, _Component);
 
-  function SearchArea() {
+  function SearchArea(props) {
     _classCallCheck(this, SearchArea);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(SearchArea).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SearchArea).call(this, props));
+
+    _this.state = {
+      loupeX: 0,
+      loupeY: 0
+    };
+    return _this;
   }
 
   _createClass(SearchArea, [{
@@ -21700,26 +21710,49 @@ var SearchArea = (function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         "div",
-        { style: _style2.default.searchArea },
+        { style: _style2.default.searchArea, onMouseMove: this._onMouseMove.bind(this) },
         _react2.default.createElement(
           "div",
-          { style: _style2.default.loupe },
+          { style: this._getLoupeStyle() },
           _react2.default.createElement(
             "div",
-            { style: _style2.default.field },
+            { style: this._getFieldStyle() },
             _react2.default.createElement(_oreshinya2.default, null)
           )
         )
       );
+    }
+  }, {
+    key: "_onMouseMove",
+    value: function _onMouseMove(e) {
+      var clientX = e.clientX;
+      var clientY = e.clientY;
+
+      var loupeX = clientX - 60;
+      var loupeY = clientY - 80 - 60;
+      if (loupeY <= -60) {
+        return;
+      }
+      this.setState({ loupeX: loupeX, loupeY: loupeY });
+    }
+  }, {
+    key: "_getLoupeStyle",
+    value: function _getLoupeStyle() {
+      return [_style2.default.loupe, { top: this.state.loupeY + "px", left: this.state.loupeX + "px" }];
+    }
+  }, {
+    key: "_getFieldStyle",
+    value: function _getFieldStyle() {
+      return [_style2.default.field, { top: -1 * this.state.loupeY + "px", left: -1 * this.state.loupeX + "px" }];
     }
   }]);
 
   return SearchArea;
 })(_react.Component);
 
-exports.default = SearchArea;
+exports.default = (0, _radium2.default)(SearchArea);
 
-},{"./oreshinya":196,"./style":198,"react":193}],196:[function(require,module,exports){
+},{"./oreshinya":196,"./style":198,"radium":9,"react":193}],196:[function(require,module,exports){
 "use strict";
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -21785,7 +21818,7 @@ var Oreshinya = (function (_Component) {
   return Oreshinya;
 })(_react.Component);
 
-exports.default = Oreshinya;
+exports.default = (0, _radium2.default)(Oreshinya);
 
 },{"./style":197,"radium":9,"react":193}],197:[function(require,module,exports){
 "use strict";
@@ -21860,8 +21893,8 @@ exports.default = {
     position: "absolute",
     top: 0,
     left: 0,
-    width: "100%",
-    height: "100%"
+    width: window.innerWidth + "px",
+    height: window.innerHeight - 80 + "px"
   },
   loupe: {
     position: "absolute",
@@ -21887,14 +21920,23 @@ exports.default = {
     height: "100%"
   },
   topContainer: {
+    boxSizing: "border-box",
     fontSize: "24px",
+    color: "#FFFFFF",
     height: "80px",
+    padding: "0 20px",
     display: "flex",
-    justifyContent: "center",
-    alignItems: "center"
+    justifyContent: "flex-start",
+    alignItems: "center",
+    position: "relative",
+    zIndex: 2,
+    backgroundColor: "#00BCD4",
+    boxShadow: "0 2px 2px #999999"
   },
   bottomContainer: {
-    height: "calc(100% - 80px)"
+    height: "calc(100% - 80px)",
+    position: "relative",
+    zIndex: 1
   }
 };
 
