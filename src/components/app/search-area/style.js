@@ -15,9 +15,9 @@ export default {
     top: 0,
     left: 0,
     boxSizing: "border-box",
-    width: "160px",
-    height: "160px",
-    borderRadius: "80px",
+    width: "120px",
+    height: "120px",
+    borderRadius: "60px",
     border: "4px solid #999999",
     overflow: "hidden"
   }
