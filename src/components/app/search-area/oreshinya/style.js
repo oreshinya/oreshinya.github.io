@@ -18,6 +18,18 @@ const walk = Radium.keyframes({
   }
 });
 
+const jump = Radium.keyframes({
+  "0%": {
+    top: 0
+  },
+  "50%": {
+    top: "-20px"
+  },
+  "100%": {
+    top: 0
+  }
+});
+
 export default {
   oreshinya: {
     width: "60px",
@@ -37,10 +49,14 @@ export default {
     display: "block"
   },
   born: {
+    position: "relative",
     width: "32px",
     height: "32px",
     backgroundImage: "url(./images/hone.png)",
     backgroundSize: "96px 128px",
     animation: `${walk} 1s step-start 0s infinite`
+  },
+  clickedBorn: {
+    animation: `${jump} 0.1s linear 0s 1, ${walk} 1s step-start 0.1s infinite`
   }
 }

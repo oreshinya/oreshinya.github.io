@@ -21700,9 +21700,9 @@ var SearchArea = (function (_Component) {
 
     _this.state = {
       loupeX: Math.round(Math.random() * (window.innerWidth - 120)),
-      loupeY: Math.round(Math.random() * (window.innerHeight - 120)),
-      oreshinyaX: Math.round(Math.random() * (window.innerWidth - 120)),
-      oreshinyaY: Math.round(Math.random() * (window.innerHeight - 120))
+      loupeY: Math.round(Math.random() * (window.innerHeight - 200)),
+      oreshinyaX: Math.round(Math.random() * (window.innerWidth - 60)),
+      oreshinyaY: Math.round(Math.random() * (window.innerHeight - 140))
     };
     return _this;
   }
@@ -21798,10 +21798,15 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Oreshinya = (function (_Component) {
   _inherits(Oreshinya, _Component);
 
-  function Oreshinya() {
+  function Oreshinya(props) {
     _classCallCheck(this, Oreshinya);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Oreshinya).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Oreshinya).call(this, props));
+
+    _this.state = {
+      isClicked: false
+    };
+    return _this;
   }
 
   _createClass(Oreshinya, [{
@@ -21824,8 +21829,23 @@ var Oreshinya = (function (_Component) {
             _react2.default.createElement("img", { src: "./images/twitter.png" })
           )
         ),
-        _react2.default.createElement("div", { style: _style2.default.born })
+        _react2.default.createElement("div", { style: this._getBornStyle(), onClick: this._onBornClick.bind(this) })
       );
+    }
+  }, {
+    key: "_onBornClick",
+    value: function _onBornClick() {
+      if (this.state.isClicked) return;
+      this.setState({ isClicked: true });
+    }
+  }, {
+    key: "_getBornStyle",
+    value: function _getBornStyle() {
+      var styles = [_style2.default.born];
+      if (this.state.isClicked) {
+        styles.push(_style2.default.clickedBorn);
+      }
+      return styles;
     }
   }]);
 
@@ -21865,6 +21885,18 @@ var walk = _radium2.default.keyframes({
   }
 });
 
+var jump = _radium2.default.keyframes({
+  "0%": {
+    top: 0
+  },
+  "50%": {
+    top: "-20px"
+  },
+  "100%": {
+    top: 0
+  }
+});
+
 exports.default = {
   oreshinya: {
     width: "60px",
@@ -21884,11 +21916,15 @@ exports.default = {
     display: "block"
   },
   born: {
+    position: "relative",
     width: "32px",
     height: "32px",
     backgroundImage: "url(./images/hone.png)",
     backgroundSize: "96px 128px",
     animation: walk + " 1s step-start 0s infinite"
+  },
+  clickedBorn: {
+    animation: jump + " 0.1s linear 0s 1, " + walk + " 1s step-start 0.1s infinite"
   }
 };
 

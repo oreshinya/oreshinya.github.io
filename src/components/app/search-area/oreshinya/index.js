@@ -3,6 +3,12 @@ import Radium from "radium";
 import style from "./style";
 
 class Oreshinya extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isClicked: false
+    };
+  }
   render() {
     return (
       <div style={style.oreshinya}>
@@ -14,9 +20,20 @@ class Oreshinya extends Component {
             <img src="./images/twitter.png" />
           </a>
         </div>
-        <div style={style.born} />
+        <div style={this._getBornStyle()} onClick={this._onBornClick.bind(this)} />
       </div>
     );
+  }
+  _onBornClick() {
+    if (this.state.isClicked) return;
+    this.setState({isClicked: true});
+  }
+  _getBornStyle() {
+    var styles = [style.born];
+    if (this.state.isClicked) {
+      styles.push(style.clickedBorn);
+    }
+    return styles;
   }
 }
 
