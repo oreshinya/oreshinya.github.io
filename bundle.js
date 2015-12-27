@@ -19029,6 +19029,10 @@ var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _searchArea = require("./search-area");
+
+var _searchArea2 = _interopRequireDefault(_searchArea);
+
 var _style = require("./style");
 
 var _style2 = _interopRequireDefault(_style);
@@ -19061,7 +19065,11 @@ var App = (function (_Component) {
           { style: _style2.default.topContainer },
           "Where's oreshinya?"
         ),
-        _react2.default.createElement("div", { style: _style2.default.bottomContainer })
+        _react2.default.createElement(
+          "div",
+          { style: _style2.default.bottomContainer },
+          _react2.default.createElement(_searchArea2.default, null)
+        )
       );
     }
   }]);
@@ -19071,7 +19079,92 @@ var App = (function (_Component) {
 
 exports.default = App;
 
-},{"./style":160,"react":158}],160:[function(require,module,exports){
+},{"./search-area":160,"./style":162,"react":158}],160:[function(require,module,exports){
+"use strict";
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _style = require("./style");
+
+var _style2 = _interopRequireDefault(_style);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SearchArea = (function (_Component) {
+  _inherits(SearchArea, _Component);
+
+  function SearchArea() {
+    _classCallCheck(this, SearchArea);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(SearchArea).apply(this, arguments));
+  }
+
+  _createClass(SearchArea, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        { style: _style2.default.searchArea },
+        _react2.default.createElement(
+          "div",
+          { style: _style2.default.loupe },
+          _react2.default.createElement("div", { style: _style2.default.field })
+        )
+      );
+    }
+  }]);
+
+  return SearchArea;
+})(_react.Component);
+
+exports.default = SearchArea;
+
+},{"./style":161,"react":158}],161:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  searchArea: {
+    height: "100%",
+    position: "relative"
+  },
+  field: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%"
+  },
+  loupe: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    boxSizing: "border-box",
+    width: "160px",
+    height: "160px",
+    borderRadius: "80px",
+    border: "4px solid #999999",
+    overflow: "hidden"
+  }
+};
+
+},{}],162:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19083,18 +19176,17 @@ exports.default = {
   },
   topContainer: {
     fontSize: "24px",
-    height: "60px",
+    height: "80px",
     display: "flex",
     justifyContent: "center",
     alignItems: "center"
   },
   bottomContainer: {
-    height: "calc(100% - 50px)",
-    backgroundColor: "yellow"
+    height: "calc(100% - 80px)"
   }
 };
 
-},{}],161:[function(require,module,exports){
+},{}],163:[function(require,module,exports){
 "use strict";
 
 var _react = require("react");
@@ -19116,4 +19208,4 @@ window.addEventListener("load", function () {
   _reactDom2.default.render(_react2.default.createElement(_app2.default, null), appContainer);
 });
 
-},{"./components/app":159,"react":158,"react-dom":2}]},{},[161]);
+},{"./components/app":159,"react":158,"react-dom":2}]},{},[163]);

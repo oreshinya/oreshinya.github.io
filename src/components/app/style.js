@@ -4,12 +4,12 @@ export default {
   },
   topContainer: {
     fontSize: "24px",
-    height: "60px",
+    height: "80px",
     display: "flex",
     justifyContent: "center",
     alignItems: "center"
   },
   bottomContainer: {
-    height: "calc(100% - 50px)"
+    height: "calc(100% - 80px)"
   }
 }
