@@ -21815,12 +21815,12 @@ var Oreshinya = (function (_Component) {
           { style: _style2.default.imageContainer },
           _react2.default.createElement(
             "a",
-            { style: _style2.default.imageLink, href: "https://twitter.com/oreshinya", target: "_blank" },
+            { style: _style2.default.imageLink, href: "https://github.com/oreshinya", target: "_blank" },
             _react2.default.createElement("img", { src: "./images/github.png" })
           ),
           _react2.default.createElement(
             "a",
-            { style: _style2.default.imageLink, href: "https://github.com/oreshinya", target: "_blank" },
+            { style: _style2.default.imageLink, href: "https://twitter.com/oreshinya", target: "_blank" },
             _react2.default.createElement("img", { src: "./images/twitter.png" })
           )
         ),
@@ -21901,7 +21901,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = {
   searchArea: {
     height: "100%",
-    position: "relative"
+    position: "relative",
+    overflow: "hidden"
   },
   field: {
     position: "absolute",

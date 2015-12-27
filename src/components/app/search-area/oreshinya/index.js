@@ -7,10 +7,10 @@ class Oreshinya extends Component {
     return (
       <div style={style.oreshinya}>
         <div style={style.imageContainer}>
-          <a style={style.imageLink} href="https://twitter.com/oreshinya" target="_blank">
+          <a style={style.imageLink} href="https://github.com/oreshinya" target="_blank">
             <img src="./images/github.png" />
           </a>
-          <a style={style.imageLink} href="https://github.com/oreshinya" target="_blank">
+          <a style={style.imageLink} href="https://twitter.com/oreshinya" target="_blank">
             <img src="./images/twitter.png" />
           </a>
         </div>

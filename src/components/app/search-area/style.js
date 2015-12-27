@@ -1,7 +1,8 @@
 export default {
   searchArea: {
     height: "100%",
-    position: "relative"
+    position: "relative",
+    overflow: "hidden"
   },
   field: {
     position: "absolute",
