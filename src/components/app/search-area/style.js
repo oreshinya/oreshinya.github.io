@@ -5,15 +5,11 @@ export default {
   },
   field: {
     position: "absolute",
-    top: 0,
-    left: 0,
     width: `${window.innerWidth}px`,
     height: `${window.innerHeight - 80}px`
   },
   loupe: {
     position: "absolute",
-    top: 0,
-    left: 0,
     boxSizing: "border-box",
     width: "120px",
     height: "120px",

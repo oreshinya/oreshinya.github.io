@@ -21700,7 +21700,9 @@ var SearchArea = (function (_Component) {
 
     _this.state = {
       loupeX: 0,
-      loupeY: 0
+      loupeY: 0,
+      oreshinyaX: Math.round(Math.random() * (window.innerWidth - 120)),
+      oreshinyaY: Math.round(Math.random() * (window.innerHeight - 120))
     };
     return _this;
   }
@@ -21717,7 +21719,11 @@ var SearchArea = (function (_Component) {
           _react2.default.createElement(
             "div",
             { style: this._getFieldStyle() },
-            _react2.default.createElement(_oreshinya2.default, null)
+            _react2.default.createElement(
+              "div",
+              { style: this._oreshinyaContainerStyle() },
+              _react2.default.createElement(_oreshinya2.default, null)
+            )
           )
         )
       );
@@ -21744,6 +21750,14 @@ var SearchArea = (function (_Component) {
     key: "_getFieldStyle",
     value: function _getFieldStyle() {
       return [_style2.default.field, { top: -1 * this.state.loupeY + "px", left: -1 * this.state.loupeX + "px" }];
+    }
+  }, {
+    key: "_oreshinyaContainerStyle",
+    value: function _oreshinyaContainerStyle() {
+      return {
+        marginTop: this.state.oreshinyaY + "px",
+        marginLeft: this.state.oreshinyaX + "px"
+      };
     }
   }]);
 
@@ -21891,15 +21905,11 @@ exports.default = {
   },
   field: {
     position: "absolute",
-    top: 0,
-    left: 0,
     width: window.innerWidth + "px",
     height: window.innerHeight - 80 + "px"
   },
   loupe: {
     position: "absolute",
-    top: 0,
-    left: 0,
     boxSizing: "border-box",
     width: "120px",
     height: "120px",

@@ -8,7 +8,9 @@ class SearchArea extends Component {
     super(props);
     this.state = {
       loupeX: 0,
-      loupeY: 0
+      loupeY: 0,
+      oreshinyaX: Math.round(Math.random() * (window.innerWidth - 120)),
+      oreshinyaY: Math.round(Math.random() * (window.innerHeight - 120))
     };
   }
   render() {
@@ -16,7 +18,9 @@ class SearchArea extends Component {
       <div style={style.searchArea} onMouseMove={this._onMouseMove.bind(this)}>
         <div style={this._getLoupeStyle()}>
           <div style={this._getFieldStyle()}>
-            <Oreshinya />
+            <div style={this._oreshinyaContainerStyle()}>
+              <Oreshinya />
+            </div>
           </div>
         </div>
       </div>
@@ -42,6 +46,12 @@ class SearchArea extends Component {
       style.field,
       {top: `${-1 * this.state.loupeY}px`, left: `${-1 * this.state.loupeX}px`}
     ];
+  }
+  _oreshinyaContainerStyle() {
+    return {
+      marginTop: `${this.state.oreshinyaY}px`,
+      marginLeft: `${this.state.oreshinyaX}px`
+    }
   }
 }
 
