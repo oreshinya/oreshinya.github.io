@@ -7,8 +7,8 @@ class SearchArea extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loupeX: 0,
-      loupeY: 0,
+      loupeX: Math.round(Math.random() * (window.innerWidth - 120)),
+      loupeY: Math.round(Math.random() * (window.innerHeight - 120)),
       oreshinyaX: Math.round(Math.random() * (window.innerWidth - 120)),
       oreshinyaY: Math.round(Math.random() * (window.innerHeight - 120))
     };

@@ -21699,8 +21699,8 @@ var SearchArea = (function (_Component) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SearchArea).call(this, props));
 
     _this.state = {
-      loupeX: 0,
-      loupeY: 0,
+      loupeX: Math.round(Math.random() * (window.innerWidth - 120)),
+      loupeY: Math.round(Math.random() * (window.innerHeight - 120)),
       oreshinyaX: Math.round(Math.random() * (window.innerWidth - 120)),
       oreshinyaY: Math.round(Math.random() * (window.innerHeight - 120))
     };
