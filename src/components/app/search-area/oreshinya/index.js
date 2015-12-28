@@ -2,7 +2,8 @@ import React, {Component} from "react";
 import Radium from "radium";
 import style from "./style";
 
-class Oreshinya extends Component {
+@Radium
+export default class Oreshinya extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -43,5 +44,3 @@ class Oreshinya extends Component {
     return styles;
   }
 }
-
-export default Radium(Oreshinya)

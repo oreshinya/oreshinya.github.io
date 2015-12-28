@@ -3,7 +3,8 @@ import Radium from "radium";
 import Oreshinya from "./oreshinya";
 import style from "./style";
 
-class SearchArea extends Component {
+@Radium
+export default class SearchArea extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -54,5 +55,3 @@ class SearchArea extends Component {
     }
   }
 }
-
-export default Radium(SearchArea)
