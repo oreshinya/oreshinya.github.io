@@ -21939,11 +21939,13 @@ exports["default"] = {
     justifyContent: "space-between",
     alignItems: "center",
     position: "relative",
-    opacity: 0
+    opacity: 0,
+    pointerEvents: "none"
   },
   clickedImageContainer: {
     animation: jumpBlock + " 0.1s linear 0.1s 1",
-    animationFillMode: "forwards"
+    animationFillMode: "forwards",
+    pointerEvents: "auto"
   },
   imageLink: {
     display: "block"
