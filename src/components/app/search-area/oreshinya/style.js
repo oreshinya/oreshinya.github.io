@@ -55,7 +55,7 @@ export default {
     flexDirection: "column"
   },
   imageContainer: {
-    width: "40px",
+    width: "60px",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",

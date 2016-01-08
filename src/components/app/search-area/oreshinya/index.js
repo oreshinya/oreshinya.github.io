@@ -20,6 +20,9 @@ export default class Oreshinya extends Component {
           <a style={style.imageLink} href="https://twitter.com/oreshinya" target="_blank">
             <img src="./images/twitter.png" />
           </a>
+          <a style={style.imageLink} href="https://itunes.apple.com/us/app/noteify/id1070701035?l=ja&ls=1&mt=12" target="_blank">
+            <img src="./images/noteify.png" />
+          </a>
         </div>
         <div style={this._getBornStyle()} onClick={this._onBornClick.bind(this)} />
       </div>

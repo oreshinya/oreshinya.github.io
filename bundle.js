@@ -21827,6 +21827,11 @@ var Oreshinya = (function (_Component) {
             "a",
             { style: _style2["default"].imageLink, href: "https://twitter.com/oreshinya", target: "_blank" },
             _react2["default"].createElement("img", { src: "./images/twitter.png" })
+          ),
+          _react2["default"].createElement(
+            "a",
+            { style: _style2["default"].imageLink, href: "https://itunes.apple.com/us/app/noteify/id1070701035?l=ja&ls=1&mt=12", target: "_blank" },
+            _react2["default"].createElement("img", { src: "./images/noteify.png" })
           )
         ),
         _react2["default"].createElement("div", { style: this._getBornStyle(), onClick: this._onBornClick.bind(this) })
@@ -21934,7 +21939,7 @@ exports["default"] = {
     flexDirection: "column"
   },
   imageContainer: {
-    width: "40px",
+    width: "60px",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
