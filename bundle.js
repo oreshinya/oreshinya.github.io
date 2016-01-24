@@ -21830,8 +21830,8 @@ var Oreshinya = (function (_Component) {
           ),
           _react2["default"].createElement(
             "a",
-            { style: _style2["default"].imageLink, href: "https://itunes.apple.com/us/app/noteify/id1070701035?l=ja&ls=1&mt=12", target: "_blank" },
-            _react2["default"].createElement("img", { src: "./images/noteify.png" })
+            { style: _style2["default"].imageLink, href: "https://oreshinya.github.io/profile.html", target: "_blank" },
+            _react2["default"].createElement("img", { src: "./images/profile.png" })
           )
         ),
         _react2["default"].createElement("div", { style: this._getBornStyle(), onClick: this._onBornClick.bind(this) })
