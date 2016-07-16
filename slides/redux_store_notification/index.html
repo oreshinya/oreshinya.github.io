@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+
+      .red {
+        color: red;
+      }
+
+      .bold {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# Considering Redux store notification
+
+@oreshinya
+
+---
+
+class: left, middle
+
+# About me
+
+- [@oreshinya](https://twitter.com/oreshinya)
+- 新規サービスつくってます
+- まだ、あまり開発始まってないので、社内ニートで(ry
+
+---
+
+class: center, middle
+
+# Redux
+
+---
+
+background-image: url(redux.png)
+
+---
+
+background-image: url(redux_notifier.png)
+
+---
+
+class: left, middle
+
+# シンプルな仕組み
+
+- store.dispatchしたときに通知にあたる処理を行う
+- storeをsubscribeしているlistenerを順番にtriggerしているだけ
+
+```javascript
+// dispatchから一部抜粋
+
+try {
+  isDispatching = true
+  currentState = currentReducer(currentState, action)
+} finally {
+  isDispatching = false
+}
+
+var listeners = currentListeners = nextListeners
+for (var i = 0; i < listeners.length; i++) {
+  listeners[i]()
+}
+```
+
+---
+
+class: center, middle
+
+# 困るシチュエーションが
+# いくつかあったので(ry
+
+---
+
+class: center, middle
+
+## **その1**
+## とにかく通知よく来る
+
+---
+
+class: center, middle
+background-image: url(todos.png)
+
+# .red.bold[例えば]
+
+---
+
+class: left, middle
+
+# Situation
+
+#### Reduxでは、1つのstoreがapplicationの全てのstateを扱う
+#### storeをsubscribeしているviewは、ひとつとは限らない
+#### viewにとって関係のないデータの変更でも通知が送られてくる
+.center[↓]
+### Front側のsortとかfilterなどが無駄に走る
+### 無駄な再描画プロセスが始まる
+### 無駄な処理を走らせたくない
+
+---
+
+class: left, middle
+
+# 解決策: [reselect](https://github.com/reactjs/reselect)
+
+```javascript
+import { createSelector } from 'reselect'
+
+// でかいstateから必要な状態だけ抜き出す関数を用意する
+const getVisibilityFilter = (state, props) =>
+  state.todoLists[props.listId].visibilityFilter
+
+const getTodos = (state, props) =>
+  state.todoLists[props.listId].todos
+
+// Storeから通知を受け取ったら、getVisibleTodosにstateをまるごと渡す
+// 最後以外の関数の実行結果が最後に渡した関数の引数に渡る
+const getVisibleTodos = createSelector(getVisibilityFilter, getTodos,
+  (visibilityFilter, todos) => {// この引数と関数の実行結果がメモ化される
+    switch (visibilityFilter) {
+      case 'SHOW_COMPLETED':
+        return todos.filter(
+          todo => todo.completed)
+      case 'SHOW_ACTIVE':
+        return todos.filter(
+          todo => !todo.completed)
+      default:
+        return todos
+    }
+  }
+)
+```
+
+---
+
+class: left, middle
+
+# メモ化すると
+
+- viewにとって関係ないデータ変更の無駄な再計算は防げる
+- viewに関わるデータが変わってないかオブジェクトごと比較すればいいので、再描画しないための判断がしやすい
+- Reactユーザーは`shouldComponentUpdate`書いとけばおｋ
+
+---
+
+class: center, middle
+
+### その1 とにかくよく通知来る
+
+# **メモ化で手を打ちましょう**
+
+---
+
+class: center, middle
+
+## **その2**
+## 複数のActionの通知をまとめられない
+
+---
+
+class: center, top
+background-image: url(gacha.png)
+
+# .red.bold[例えば]
+
+---
+
+class: left, middle
+
+# Situation
+
+#### 2つ以上のReducerに対してActionを発行したい一つの操作がある
+#### 各ReducerごとのActionを発行するActionCreatorは既にある
+#### 既存の各ActionCreatorを使って各Actionをdispatchすると、複数回通知が走る
+.center[↓]
+### 複数のActionをまとめてdispatchしたい...
+
+---
+
+class: left, middle
+
+# 解決策: [redux-batched-actions](https://github.com/tshelburne/redux-batched-actions)
+
+- 複数のActionを発行するActionと、そのActionを処理するReducerを提供
+- dispatchされるActionは1つという扱いになるため、**通知は1回だけ**走る
+- ActionTypeにまつわるMiddlewareを使っている場合に注意
+
+```javascript
+import { batchActions, enableBatching } from 'redux-batched-actions';
+
+// enableBatchingでcombineしたReducerをラップする
+const store = createStore(enableBatching(reducer));
+
+// batchActionsにActionCreatorの実行結果のActionを渡す
+store.dispatch(batchActions([doThing(), doOther()]));
+```
+
+---
+
+class: center, middle
+
+### その2 複数のActionの通知をまとめられない
+
+# **複数のActionを発行するAction,**
+# **Reducerを用意しましょう**
+
+---
+
+class: center, middle
+
+# **その3**
+# 意図せず複数回の通知が
+# バッティング
+
+---
+
+class: center, top
+background-image: url(loading.gif)
+
+# .red.bold[例えば]
+
+---
+
+class: left, middle
+
+# Situation
+
+#### 非同期処理(Request API, IndexedDBなど) -> Dispatch Action
+#### ポーリング -> Dispatch Action
+#### これらのAction同士やユーザー操作によるActionがほぼ同時に発生する
+.center[↓]
+### 細切れのUI更新が発生し、キモい動きになる
+
+---
+
+class: left, middle
+
+# 解決策: [redux-batched-subscribe](https://github.com/tappleby/redux-batched-subscribe)
+
+- listenerの実行部分の処理をラップできるようにする
+
+```javascript
+import { batchedSubscribe } from 'redux-batched-subscribe';
+
+// batchedSubscribeが期待する関数の基本形
+const batchedUpdates = notify => notify(); //notifyを呼び出すとlistenerを実行
+
+// Debounce
+const batchedUpdates = _.debounce(notify => notify());
+
+const enhancer = compose(
+  applyMiddleware(...middleware),
+  batchedSubscribe(batchedUpdates)
+)
+
+const store = createStore(reducer, initialState, enhancer);
+
+```
+
+---
+
+class: left, middle
+
+### listenerの実行部分を好きにラップできると
+
+- Debounceなどすることによって、短期間の複数のActionの変更通知を1つにまとめて通知できるようになり幸せになる
+- [React本家のフォーラム](https://discuss.reactjs.org/t/any-plan-for-reactdom-unstable-batchedupdates/1978)を見ると、すべての更新が自動的にバッチ更新されるようにする予定らしいので、Reactユーザーは、未来はこんなことを気にしなくて済むかもしれない
+
+---
+
+class: center, middle
+
+### その3 意図せず複数回の通知がバッティング
+
+# **短期間の通知はひとまとめに**
+
+---
+
+class: center, middle
+
+## これにて一件落着 :)
+
+---
+
+class: center, middle
+
+# まとめ
+
+## Reduxのstoreの通知処理はドンブリ
+## 素のReduxはほぼ何もやっていない
+## 素で使おうとせず、何かに困ったらとにかく手を入れる
+
+---
+
+class: center, middle
+
+# Thank you
+
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
