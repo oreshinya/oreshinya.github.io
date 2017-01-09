@@ -2,7 +2,7 @@ clean:
 	rm -rf public/build
 
 js:
-	elm-make src/Main.elm --output=bundle.js
+	elm-make src/Main.elm --output=index.js
 
 css:
 	elm-css StyleCompiler.elm --module=StyleCompiler --output=./
