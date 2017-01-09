@@ -1,0 +1,44 @@
+@keyframes walk {
+  0% {
+    background-position: -32px 0;
+  }
+  25% {
+    background-position: -32px 0;
+  }
+  50% {
+    background-position: 0 0;
+  }
+  75% {
+    background-position: -32px 0;
+  }
+  100% {
+    background-position: -64px 0;
+  }
+}
+
+@keyframes jump {
+  0% {
+    top: 0;
+  }
+  50% {
+    top: -20px;
+  }
+  100% {
+    top: 0;
+  }
+}
+
+@keyframes jump-block {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+  50% {
+    top: -20px;
+    opacity: 1;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+  }
+}
