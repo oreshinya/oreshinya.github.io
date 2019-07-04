@@ -1,0 +1,25 @@
+{
+  "name": "oreshinya.github.io",
+  "version": "1.0.0",
+  "description": "I'm oreshinya.",
+  "main": "index.html",
+  "scripts": {
+    "clean": "rm -rf output",
+    "spago": "spago",
+    "build": "spago bundle-app -t assets/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oreshinya/oreshinya.github.io.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/oreshinya/oreshinya.github.io/issues"
+  },
+  "homepage": "https://github.com/oreshinya/oreshinya.github.io#readme",
+  "dependencies": {
+    "purescript": "^0.13.0",
+    "spago": "^0.8.5"
+  }
+}
