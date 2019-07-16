@@ -82,10 +82,9 @@ info =
     , H.el $ H.p # H.kids [ H.t "Webエンジニア" ]
     , H.el $ H.h2 # H.kids [ H.t "スキル" ]
     , H.el $ H.p # H.kids [ H.t "フロントエンドからインフラまでやります。" ]
-    , H.el $ H.p # H.kids [ H.t "フロントエンド、とりわけSPAについては2012年からの長い経験があり得意としています。" ]
-    , H.el $ H.p # H.kids [ H.t "仕事上では主にRuby, Go, JavaScript, TypeScript, Flowを使う機会が多いです。" ]
+    , H.el $ H.p # H.kids [ H.t "仕事上ではJavaScript, TypeScript, Flow, Ruby, Goを使う機会が多いです。" ]
     , H.el $ H.p # H.kids [ H.t "プライベートでは、PureScriptを最も好んでおり、" ]
-    , H.el $ H.p # H.kids [ H.t "サーバー向けフレームワークや、仮想DOMなど多数のパッケージをつくっています。" ]
+    , H.el $ H.p # H.kids [ H.t "仮想DOMや、サーバー向けライブラリなどのパッケージをつくっています。" ]
     , H.el $ H.p # H.kids [ H.t "インフラについては最近はもっぱらGCPとりわけGKEを使います。" ]
     ]
 
@@ -95,8 +94,8 @@ work =
     [ H.el $ H.h2 # H.kids [ H.t "業務" ]
     , H.el $ H.p # H.kids [ H.t "以下はフリーランスとしての業務の例です。" ]
     , H.el $ H.ul # H.kids
-      [ H.el $ H.li # H.kids [ H.t "フロントエンド環境のモダン化" ]
-      , H.el $ H.li # H.kids [ H.t "React/Reduxをベースにした高速な開発を可能とする基盤実装" ]
+      [ H.el $ H.li # H.kids [ H.t "フロントエンド環境の刷新(CoffeeScriptからの移行やwebpackへの移行等)" ]
+      , H.el $ H.li # H.kids [ H.t "React/Reduxをベースとした、手数と設計負担を減らし、且つ、一様なコードを書くための仕組み化" ]
       , H.el $ H.li # H.kids [ H.t "データ分析基盤の構築" ]
       , H.el $ H.li # H.kids [ H.t "ドメインやシステムの都合上手を出しにくい、負債になっているテーブル群の全面的な再設計と実装とデータマイグレーション" ]
       , H.el $ H.li # H.kids [ H.t "AWSからGCPへのインフラ移行(主にGCP側やアプリケーションの修正、移行作業)" ]
