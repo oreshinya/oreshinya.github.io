@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rm -rf output",
     "spago": "spago",
-    "build": "spago bundle-app -t assets/index.js"
+    "build": "spago bundle-app -t assets/index.js && terser --compress --mangle --output=assets/index.js -- assets/index.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   "homepage": "https://github.com/oreshinya/oreshinya.github.io#readme",
   "dependencies": {
     "purs-bin-simple": "^0.3.0",
-    "spago": "^0.8.5"
+    "spago": "^0.8.5",
+    "terser": "^4.1.2"
   }
 }
