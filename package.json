@@ -8,7 +8,7 @@
     "build": "run-s clean purs uglify rev",
     "clean": "rm -rf output && rm -f index.html && rm -rf assets",
     "purs": "spago bundle-app -t static/assets/index.js",
-    "uglify": "cd static/assets && terser --compress --mangle --output=index.js -- index.js",
+    "uglify": "cd static/assets && terser --compress --mangle --enclose --output=index.js -- index.js",
     "rev": "simple-rev static ."
   },
   "repository": {
