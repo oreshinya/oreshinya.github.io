@@ -2,10 +2,15 @@ module Main where
 
 import Prelude
 
+import Data.Maybe (Maybe(..))
 import Effect (Effect)
-import Freedom as Freedom
-import Freedom.Markup as H
-import Freedom.UI (VNode)
+import Grain (class LocalGrain, LProxy(..), VNode, fromConstructor, mountUI, useUpdater, useValue)
+import Grain.Markup as H
+import Web.DOM.Element (toNode)
+import Web.DOM.ParentNode (QuerySelector(..), querySelector)
+import Web.HTML (window)
+import Web.HTML.HTMLDocument (toParentNode)
+import Web.HTML.Window (document)
 
 data Tab
   = Info
@@ -13,29 +18,35 @@ data Tab
 
 derive instance eqTab :: Eq Tab
 
-type State = Tab
+instance localGrainTab :: LocalGrain Tab where
+  initialState _ = pure Info
+  typeRefOf _ = fromConstructor Info
 
 main :: Effect Unit
-main = Freedom.run
-  { selector: "#app"
-  , initialState: Info
-  , subscriptions: []
-  , view
-  }
+main = do
+  maybeEl <- window >>= document <#> toParentNode >>= querySelector (QuerySelector "#app")
+  case maybeEl of
+    Nothing -> pure unit
+    Just el ->
+      void $ mountUI view $ toNode el
 
-view :: State -> VNode State
-view state =
-  H.div # H.css wholeCSS # H.kids
+view :: VNode
+view = H.component do
+  tab <- useValue (LProxy :: _ Tab)
+  updateTab <- useUpdater (LProxy :: _ Tab)
+  let navigateInfo = updateTab $ const Info
+      navigateWork = updateTab $ const Work
+  pure $ H.div # H.css wholeCSS # H.kids
     [ H.header # H.kids
-        [ H.h1 # H.css h1CSS # H.kids [ H.t "oreshinya.github.io" ]
+        [ H.h1 # H.css h1CSS # H.kids [ H.text "oreshinya.github.io" ]
         , H.div # H.css topCSS # H.kids
             [ H.div # H.css avatarCSS # H.kids
                 [ H.img # H.css avatarImgCSS # H.src "assets/profile.jpg" # H.alt "Profile"
                 ]
             , H.div # H.kids
-                [ H.h3 # H.kids [ H.t "ID" ]
-                , H.p # H.kids [ H.t "oreshinya" ]
-                , H.h3 # H.kids [ H.t "ソーシャルアカウント" ]
+                [ H.h3 # H.kids [ H.text "ID" ]
+                , H.p # H.kids [ H.text "oreshinya" ]
+                , H.h3 # H.kids [ H.text "ソーシャルアカウント" ]
                 , H.div # H.css socialContainerCSS # H.kids
                     [ H.a # H.css socialCSS # H.href "https://twitter.com/oreshinya" # H.kids
                         [ H.img # H.css socialImgCSS # H.src "assets/twitter.svg" # H.alt "Twitter"
@@ -52,60 +63,60 @@ view state =
         , H.div # H.css middleCSS # H.kids
             [ H.a
                 # H.css linkCSS
-                # H.className (if state == Info then "active" else "")
-                # H.onClick (\_ { query } -> query.reduce $ const Info)
-                # H.kids [ H.t "インフォメーション" ]
+                # H.className (if tab == Info then "active" else "")
+                # H.onClick (const navigateInfo)
+                # H.kids [ H.text "インフォメーション" ]
             , H.a
                 # H.css linkCSS
-                # H.className (if state == Work then "active" else "")
-                # H.onClick (\_ { query } -> query.reduce $ const Work)
-                # H.kids [ H.t "業務について" ]
+                # H.className (if tab == Work then "active" else "")
+                # H.onClick (const navigateWork)
+                # H.kids [ H.text "業務について" ]
             ]
         ]
     , H.main_ # H.kids
-        [ case state of
+        [ case tab of
             Info -> H.key "info" info
             Work -> H.key "work" work
         ]
     ]
 
-info :: VNode State
+info :: VNode
 info =
   H.div # H.kids
-    [ H.h2 # H.kids [ H.t "所属" ]
-    , H.p # H.kids [ H.t "フリーランス" ]
-    , H.h2 # H.kids [ H.t "職種" ]
-    , H.p # H.kids [ H.t "Webエンジニア" ]
-    , H.h2 # H.kids [ H.t "スキル" ]
-    , H.p # H.kids [ H.t "フロントエンドからインフラまでやります。" ]
-    , H.p # H.kids [ H.t "仕事上ではJavaScript, TypeScript, Flow, Ruby, Goを使う機会が多いです。" ]
-    , H.p # H.kids [ H.t "PureScriptを最も好んでおり、" ]
-    , H.p # H.kids [ H.t "仮想DOMや、サーバー向けライブラリなどのパッケージをつくっています。" ]
-    , H.p # H.kids [ H.t "インフラについては最近はもっぱらGCPとりわけGKEを使います。" ]
+    [ H.h2 # H.kids [ H.text "所属" ]
+    , H.p # H.kids [ H.text "フリーランス" ]
+    , H.h2 # H.kids [ H.text "職種" ]
+    , H.p # H.kids [ H.text "Webエンジニア" ]
+    , H.h2 # H.kids [ H.text "スキル" ]
+    , H.p # H.kids [ H.text "フロントエンドからインフラまでやります。" ]
+    , H.p # H.kids [ H.text "仕事上ではJavaScript, TypeScript, Flow, Ruby, Goを使う機会が多いです。" ]
+    , H.p # H.kids [ H.text "PureScriptを最も好んでおり、" ]
+    , H.p # H.kids [ H.text "仮想DOMや、サーバー向けライブラリなどのパッケージをつくっています。" ]
+    , H.p # H.kids [ H.text "インフラについては最近はもっぱらGCPとりわけGKEを使います。" ]
     ]
 
-work :: VNode State
+work :: VNode
 work =
   H.div # H.kids
-    [ H.h2 # H.kids [ H.t "業務" ]
-    , H.p # H.kids [ H.t "以下はフリーランスとしての業務の例です。" ]
+    [ H.h2 # H.kids [ H.text "業務" ]
+    , H.p # H.kids [ H.text "以下はフリーランスとしての業務の例です。" ]
     , H.ul # H.kids
-        [ H.li # H.kids [ H.t "フロントエンド環境の刷新(CoffeeScriptからの移行やwebpackへの移行等)" ]
-        , H.li # H.kids [ H.t "React/Reduxをベースとした、手数と設計負担を減らし、且つ、一様なコードを書くための仕組み化" ]
-        , H.li # H.kids [ H.t "データ分析基盤の構築" ]
-        , H.li # H.kids [ H.t "ドメインやシステムの都合上手を出しにくい、負債になっているテーブル群の全面的な再設計と実装とデータマイグレーション" ]
-        , H.li # H.kids [ H.t "AWSからGCPへのインフラ移行(主にGCP側やアプリケーションの修正、移行作業)" ]
-        , H.li # H.kids [ H.t "負債の溜まった決済基盤の全面的な再設計と実装" ]
-        , H.li # H.kids [ H.t "各種パフォーマンスチューニング" ]
-        , H.li # H.kids [ H.t "機械学習を用いた自然言語分野における分類器の作成とそれを用いたアプリケーションやインフラの構築" ]
-        , H.li # H.kids [ H.t "ざっくり要望をもらって、一人でサービスをリリース" ]
-        , H.li # H.kids [ H.t "PureScriptの導入" ]
-        , H.li # H.kids [ H.t "WebRTCを用いたシステムの開発" ]
+        [ H.li # H.kids [ H.text "フロントエンド環境の刷新(CoffeeScriptからの移行やwebpackへの移行等)" ]
+        , H.li # H.kids [ H.text "React/Reduxをベースとした、手数と設計負担を減らし、且つ、一様なコードを書くための仕組み化" ]
+        , H.li # H.kids [ H.text "データ分析基盤の構築" ]
+        , H.li # H.kids [ H.text "ドメインやシステムの都合上手を出しにくい、負債になっているテーブル群の全面的な再設計と実装とデータマイグレーション" ]
+        , H.li # H.kids [ H.text "AWSからGCPへのインフラ移行(主にGCP側やアプリケーションの修正、移行作業)" ]
+        , H.li # H.kids [ H.text "負債の溜まった決済基盤の全面的な再設計と実装" ]
+        , H.li # H.kids [ H.text "各種パフォーマンスチューニング" ]
+        , H.li # H.kids [ H.text "機械学習を用いた自然言語分野における分類器の作成とそれを用いたアプリケーションやインフラの構築" ]
+        , H.li # H.kids [ H.text "ざっくり要望をもらって、一人でサービスをリリース" ]
+        , H.li # H.kids [ H.text "PureScriptの導入" ]
+        , H.li # H.kids [ H.text "WebRTCを用いたシステムの開発" ]
         ]
-    , H.p # H.kids [ H.t "など、多義に渡ります。" ]
-    , H.p # H.kids [ H.t "技術的課題のタスクは特性上ソロあるいはほぼソロであたるような業務が多めですが、複数人での通常の機能開発もやります。" ]
-    , H.h2 # H.kids [ H.t "仕事のご依頼" ]
-    , H.p # H.kids [ H.t "TwitterのDMにて受け付けております。" ]
+    , H.p # H.kids [ H.text "など、多義に渡ります。" ]
+    , H.p # H.kids [ H.text "技術的課題のタスクは特性上ソロあるいはほぼソロであたるような業務が多めですが、複数人での通常の機能開発もやります。" ]
+    , H.h2 # H.kids [ H.text "仕事のご依頼" ]
+    , H.p # H.kids [ H.text "TwitterのDMにて受け付けております。" ]
     ]
 
 wholeCSS :: String
