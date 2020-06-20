@@ -121,7 +121,7 @@ let additions =
         { dependencies =
           [ "foreign-object", "safely", "unsafe-reference", "web-html" ]
         , repo = "https://github.com/purescript-grain/purescript-grain.git"
-        , version = "v0.1.0"
+        , version = "v0.2.0"
         }
       }
 
