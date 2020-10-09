@@ -33,9 +33,9 @@ main = do
 view :: VNode
 view = H.component do
   tab <- useValue (LProxy :: _ Tab)
-  update <- useUpdater
-  let navigateInfo = update (LProxy :: _ Tab) $ const Info
-      navigateWork = update (LProxy :: _ Tab) $ const Work
+  updateTab <- useUpdater (LProxy :: _ Tab)
+  let navigateInfo = updateTab $ const Info
+      navigateWork = updateTab $ const Work
   pure $ H.div # H.css wholeCSS # H.kids
     [ H.header # H.kids
         [ H.h1 # H.css h1CSS # H.kids [ H.text "oreshinya.github.io" ]
