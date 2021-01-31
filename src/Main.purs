@@ -124,7 +124,7 @@ wholeCSS =
   """
   body {
     margin: 0;
-    font-family: 'Montserrat', 'M PLUS Rounded 1c', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     color: #111111;
     background-color: #fcfcfc;
   }
