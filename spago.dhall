@@ -2,12 +2,9 @@
 Welcome to a Spago project!
 You can edit this file as you like.
 -}
-{ name =
-    "oreshinya.github.io"
+{ name = "oreshinya.github.io"
 , dependencies =
-    [ "grain" ]
-, packages =
-    ./packages.dhall
-, sources =
-    [ "src/**/*.purs" ]
+  [ "effect", "grain", "maybe", "prelude", "web-dom", "web-html" ]
+, packages = ./packages.dhall
+, sources = [ "src/**/*.purs" ]
 }
